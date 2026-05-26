@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Further Away — Full Info</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #11111a;
+            --surface2: #16161f;
+            --accent: #c8a96e;
+            --accent-dim: #7a6340;
+            --text: #e8e0d0;
+            --muted: #6b6358;
+            --glow: rgba(200, 169, 110, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Crimson Pro', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(1px 1px at 5%  85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 95% 60%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(2px 2px at 40% 40%, rgba(200,169,110,0.25) 0%, transparent 100%),
+                radial-gradient(2px 2px at 70% 80%, rgba(200,169,110,0.2) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Geri dön linki */
+        .back-link {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            margin: 36px 40px 0;
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-dim);
+            text-decoration: none;
+            transition: color 0.25s;
+        }
+
+        .back-link::before {
+            content: '← ';
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 48px 40px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 52px;
+        }
+
+        /* Sayfa başlığı */
+        .page-header {
+            text-align: center;
+            animation: fadeDown 0.9s ease both;
+        }
+
+        .page-header .sub {
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-dim);
+            margin-bottom: 14px;
+        }
+
+        .page-header h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--accent);
+            text-shadow: 0 0 40px rgba(200,169,110,0.35);
+        }
+
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 22px auto 0;
+        }
+
+        /* Genel bölüm kutusu */
+        .info-section {
+            background: var(--surface);
+            border: 1px solid rgba(200,169,110,0.12);
+            border-radius: 4px;
+            padding: 36px 44px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        .info-section + .info-section {
+            animation-delay: 0.15s;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .section-label {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .info-section p,
+        .info-section li {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: var(--text);
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 8px;
+        }
+
+        .info-section ul li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .info-section ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* İki sütunlu içerik (isteğe bağlı) */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        @media (max-width: 600px) {
+            .two-col { grid-template-columns: 1fr; }
+            .container { padding: 36px 20px 60px; }
+            .info-section { padding: 28px 24px; }
+        }
+
+        /* Alt gezinme */
+        .bottom-nav {
+            text-align: center;
+            animation: fadeUp 0.9s 0.3s ease both;
+        }
+
+        .btn-back {
+            display: inline-block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            border: 1px solid var(--accent-dim);
+            padding: 13px 38px;
+            text-decoration: none;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .btn-back:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Ana sayfaya dönüş linki -->
+<a href="/" class="back-link">Ana Sayfa</a>
+
+<div class="container">
+
+    <!-- ══════════════════════════════════════
+         SAYFA BAŞLIĞI
+    ══════════════════════════════════════ -->
+    <header class="page-header">
+        <p class="sub">Other Informations</p>
+        <h1>Further Away & MIY4WCREATION</h1>
+        <div class="divider"></div>
+    </header>
+
+    <!-- ══════════════════════════════════════
+         BÖLÜM 1 — OYUN HAKKINDA DETAYLI BİLGİ
+         Oyunun hikâyesini, dünyasını, mekaniklerini
+         veya vizyonunu buraya yaz.
+    ══════════════════════════════════════ -->
+    <section class="info-section">
+        <p class="section-label">The Game</p>
+        <h2 class="section-title">Further Away</h2>
+        <p>
+            <!-- OYUN HAKKINDA DETAYLI AÇIKLAMA BURAYA -->
+        </p>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BÖLÜM 2 — OYUNUN ÖZELLİKLERİ (LİSTE)
+         Oyunun öne çıkan özelliklerini madde madde yaz.
+    ══════════════════════════════════════ -->
+    <section class="info-section">
+        <p class="section-label">Features</p>
+        <h2 class="section-title">What Makes It Different</h2>
+        <ul>
+            <li>It doesn't have a princess to protect.</li>
+            <li>Actually, it was just a little group's work.</li>
+        </ul>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BÖLÜM 3 — MIY4WCREATION HAKKINDA
+         Stüdyonun kim olduğunu, nasıl kurulduğunu
+         veya vizyonunu buraya yaz.
+    ══════════════════════════════════════ -->
+    <section class="info-section">
+        <p class="section-label">The Studio</p>
+        <h2 class="section-title">MIY4WCREATION</h2>
+        <p>
+            <!-- STÜDYO HAKKINDA BİLGİ BURAYA -->
+        </p>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BÖLÜM 4 — GELİŞTİRME SÜRECİ / HEDEFLER (İSTEĞE BAĞLI)
+         Oyunun ne zaman çıkacağını, nerede yayınlanacağını
+         veya geliştirme notlarını buraya ekleyebilirsin.
+         İstemiyorsan bu section bloğunu silebilirsin.
+    ══════════════════════════════════════ -->
+    <section class="info-section">
+        <p class="section-label">Development</p>
+        <h2 class="section-title">MIY4WCREATION</h2>
+        <p>
+            <!-- GELİŞTİRME SÜRECİ / ÇIKIŞ HEDEFİ BURAYA -->
+        </p>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         İLETİŞİM / SOSYAL MEDYA (İSTEĞE BAĞLI)
+         İki sütunlu düzen kullanılmış; istemiyorsan
+         two-col classını kaldır ve tek p yaz.
+    ══════════════════════════════════════ -->
+    <section class="info-section">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="two-col">
+            <div>
+                <p>
+                    <!-- İLETİŞİM BİLGİSİ / E-POSTA BURAYA -->
+                </p>
+            </div>
+            <div>
+                <p>
+                    <!-- SOSYAL MEDYA LİNKLERİ BURAYA -->
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ana sayfaya dön butonu -->
+    <div class="bottom-nav">
+        <a href="/" class="btn-back">← Back to Home</a>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         FOOTER — yılı veya ek notu buraya yaz
+    ══════════════════════════════════════ -->
+    <footer>
+        &copy; <!-- YIL --> MIY4WCREATION &mdash; All Rights Reserved
+    </footer>
+
+</div>
+</body>
+</html>

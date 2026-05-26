@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Further Away</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #11111a;
+            --accent: #c8a96e;
+            --accent-dim: #7a6340;
+            --text: #e8e0d0;
+            --muted: #6b6358;
+            --glow: rgba(200, 169, 110, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Crimson Pro', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Arka planda yıldız benzeri nokta efektleri */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 65% 20%, rgba(255,255,255,0.2) 0%, transparent 100%),
+                radial-gradient(2px 2px at 75% 45%, rgba(200,169,110,0.3) 0%, transparent 100%),
+                radial-gradient(2px 2px at 25% 55%, rgba(200,169,110,0.2) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 80px 40px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .header {
+            text-align: center;
+            animation: fadeDown 1s ease both;
+        }
+
+        .studio-label {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-dim);
+            margin-bottom: 18px;
+        }
+
+        .game-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 900;
+            color: var(--accent);
+            text-shadow:
+                0 0 40px rgba(200,169,110,0.4),
+                0 0 80px rgba(200,169,110,0.15);
+            line-height: 1.1;
+            letter-spacing: 0.05em;
+        }
+
+        .divider {
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 24px auto;
+        }
+
+        .intro-card {
+            background: var(--surface);
+            border: 1px solid rgba(200,169,110,0.15);
+            border-radius: 4px;
+            padding: 36px 44px;
+            width: 100%;
+            animation: fadeUp 1s 0.2s ease both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .intro-card h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+        }
+
+        .intro-card p {
+            font-size: 1.15rem;
+            font-weight: 300;
+            line-height: 1.85;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            width: 100%;
+            animation: fadeUp 1s 0.4s ease both;
+        }
+
+        .feature-item {
+            background: var(--surface);
+            border: 1px solid rgba(200,169,110,0.1);
+            border-radius: 4px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-item:hover {
+            border-color: rgba(200,169,110,0.4);
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .feature-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .cta-wrapper {
+            animation: fadeUp 1s 0.6s ease both;
+        }
+
+        /* "Learn More" butonu — tıklanınca /about sayfasına gider */
+        .btn-learn {
+            display: inline-block;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--accent);
+            border: none;
+            padding: 16px 48px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+        }
+
+        .btn-learn:hover {
+            background: #dfc080;
+            box-shadow: 0 0 30px rgba(200,169,110,0.5);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+            animation: fadeUp 1s 0.8s ease both;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ══════════════════════════════════════
+         BAŞLIK ALANI
+         studio-label: Studio adın burada görünür
+    ══════════════════════════════════════ -->
+    <header class="header">
+        <p class="studio-label">MIY4WCREATION</p>
+        <h1 class="game-title">Further Away</h1>
+        <div class="divider"></div>
+    </header>
+
+    <!-- ══════════════════════════════════════
+         KISA TANITIM METNİ
+         Oyunun konusunu, türünü veya genel ruhunu
+         anlatan 2-4 cümle yaz.
+    ══════════════════════════════════════ -->
+    <section class="intro-card">
+        <h2>About the Game</h2>
+        <p>
+            <!-- BURAYA OYUNUN KISA AÇIKLAMASINI YAZ -->
+        </p>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ÖZELLİK KUTULARI
+         Her kutu için:
+           - feature-icon: emoji veya ikon
+           - feature-title: özelliğin adı
+           - feature-desc: 1-2 cümle açıklama
+         İstersen daha fazla div.feature-item ekleyebilirsin.
+    ══════════════════════════════════════ -->
+    <section class="features">
+
+        <div class="feature-item">
+            <span class="feature-icon">🌌</span>
+            <div class="feature-title">
+                <!-- ÖZELLIK 1 ADI — örn: World -->
+            </div>
+            <p class="feature-desc">
+                <!-- ÖZELLIK 1 AÇIKLAMASI -->
+            </p>
+        </div>
+
+        <div class="feature-item">
+            <span class="feature-icon">⚔️</span>
+            <div class="feature-title">
+                <!-- ÖZELLIK 2 ADI — örn: Combat -->
+            </div>
+            <p class="feature-desc">
+                <!-- ÖZELLIK 2 AÇIKLAMASI -->
+            </p>
+        </div>
+
+        <div class="feature-item">
+            <span class="feature-icon">🎵</span>
+            <div class="feature-title">
+                <!-- ÖZELLIK 3 ADI — örn: Soundtrack -->
+            </div>
+            <p class="feature-desc">
+                <!-- ÖZELLIK 3 AÇIKLAMASI -->
+            </p>
+        </div>
+
+        <!-- Yeni özellik eklemek için şu bloğu buraya kopyala:
+        <div class="feature-item">
+            <span class="feature-icon">🔥</span>
+            <div class="feature-title">ÖZELLIK ADI</div>
+            <p class="feature-desc">Açıklama buraya</p>
+        </div>
+        -->
+
+    </section>
+
+    <!-- "Learn More" butonu — /about rotasına yönlendirir -->
+    <div class="cta-wrapper">
+        <a href="/about" class="btn-learn">Learn More</a>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         FOOTER
+         Telif hakkı yılını veya stüdyo adını buraya yaz.
+    ══════════════════════════════════════ -->
+    <footer>
+        &copy; <!-- YIL --> MIY4WCREATION &mdash; All Rights Reserved
+    </footer>
+
+</div>
+</body>
+</html>
